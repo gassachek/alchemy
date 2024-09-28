@@ -4,22 +4,35 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class InventoryTest : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
+        Inventory inventory= new Inventory();
+
+        inventory.Add("grass", 5);
+        inventory.Add("eyes", 2);
+        inventory.Add("flower", 1);
+
+        Debug.Log(inventory.Get("grass"));
+        Debug.Log(inventory.Get("flower"));
+
+        inventory.Remove("eyes", 1);
+        inventory.Remove("flower", 1);
+        Debug.Log(inventory.Get("eyes"));
+        Debug.Log(inventory.Get("flower"));
+
+        inventory.Remove("grass", 6);
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 }
 
-public class InventoryItem
+public class Inventory
 {
     Dictionary<string, int> Ingredients = new Dictionary<string, int>();
 
@@ -60,6 +73,10 @@ public class InventoryItem
             {
                 Ingredients.Remove(name);
                 return true;
+            }
+            else
+            {
+                throw new KeyNotFoundException("Ошибка");
             }
         }
 
