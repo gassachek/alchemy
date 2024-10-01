@@ -1,28 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class Inventory
 {
-    Dictionary<string, int> Ingredients = new Dictionary<string, int>();
+    Dictionary<string, Material> Materials = new Dictionary<string, Material>();
 
-    public void Add(string name, int count)
+    public void Add(MaterialData materialData, int count)
     {
-        if (Ingredients.ContainsKey(name))
+        string name = materialData.Name;
+        if (Materials.ContainsKey(name))
         {
-            Ingredients[name] += count;
+            Materials[name].AddMaterial(count);
         }
         else
         {
-            Ingredients.Add(name, count);
+            Materials.Add(name, new Material(materialData, count));
         }
     }
 
     public int Get(string name)
     {
-        if (Ingredients.TryGetValue(name, out int count))
+        if (Materials.TryGetValue(name, out Material material))
         {
-            return count;
+            return material.MaterialCount;
         }
         else
         {
@@ -32,24 +34,21 @@ public class Inventory
 
     public bool Remove(string name, int count)
     {
-        if (Ingredients.TryGetValue(name, out int countIngredient))
+        if (Materials.TryGetValue(name, out Material material))
         {
-            if (countIngredient > count)
+            if(material.RemoveMaterial(count))
             {
-                Ingredients[name] = countIngredient - count;
-                return true;
-            }
-            else if (countIngredient == count)
-            {
-                Ingredients.Remove(name);
+                if (material.MaterialCount == 0)
+                {
+                    Materials.Remove(name);
+                }
                 return true;
             }
             else
             {
-                throw new KeyNotFoundException("Ошибка");
+                throw new KeyNotFoundException("Недостаточно ингредиентов");
             }
         }
-
         return false;
     }
 }
