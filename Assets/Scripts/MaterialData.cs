@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.IO.Enumeration;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Material", menuName = "Materials/ New Material")]
-public class MaterialData: ScriptableObject
+[System.Serializable]
+public class MaterialData
 {
     [SerializeField] private int _id;
     [SerializeField] private string _name;

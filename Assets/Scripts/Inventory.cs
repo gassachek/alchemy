@@ -6,7 +6,6 @@ using UnityEngine;
 public class Inventory
 {
     Dictionary<string, Material> Materials = new Dictionary<string, Material>();
-
     public void Add(MaterialData materialData, int count)
     {
         string name = materialData.Name;

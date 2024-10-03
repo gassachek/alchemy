@@ -20,7 +20,7 @@ public class Material
 
     public bool RemoveMaterial(int count)
     {
-        if (MaterialCount > count)
+        if (MaterialCount >= count)
         {
             MaterialCount -= count;
             return true;
