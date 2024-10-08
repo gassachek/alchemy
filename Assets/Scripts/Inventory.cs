@@ -39,7 +39,7 @@ public class Inventory
             {
                 if (material.MaterialCount == 0)
                 {
-                    Materials.Remove(name);
+                    Materials.Remove(name); // Можно оставить количество 0
                 }
                 return true;
             }
