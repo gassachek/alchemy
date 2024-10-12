@@ -15,6 +15,6 @@ public class MaterialDatabase : ScriptableObject
                 return material;
             }
         }
-        throw new KeyNotFoundException("Такого материала не существует");
+        return null;
     }
 }
