@@ -1,21 +1,21 @@
 using System.Collections.Generic;
 public class Inventory
 {
-    Dictionary<string, int> Materials = new Dictionary<string, int>();
+    Dictionary<string, int> Item = new Dictionary<string, int>();
     public void Add(string name, int count)
     {
-        if (Materials.ContainsKey(name))
+        if (Item.ContainsKey(name))
         {
-            Materials[name] += count;
+            Item[name] += count;
         }
         else
         {
-            Materials.Add(name, count);
+            Item.Add(name, count);
         }
     }
     public int Get(string name)
     {
-        if (Materials.TryGetValue(name, out int count))
+        if (Item.TryGetValue(name, out int count))
         {
             return count;
         }
@@ -26,16 +26,16 @@ public class Inventory
     }
     public bool Remove(string name, int count)
     {
-        if (Materials.TryGetValue(name, out int countIngredient))
+        if (Item.TryGetValue(name, out int countIngredient))
         {
             if (countIngredient > count)
             {
-                Materials[name] = countIngredient - count;
+                Item[name] = countIngredient - count;
                 return true;
             }
             else if (countIngredient == count)
             {
-                Materials.Remove(name);
+                Item.Remove(name);
                 return true;
             }
             else
