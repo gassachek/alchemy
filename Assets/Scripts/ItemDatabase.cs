@@ -6,7 +6,7 @@ public class ItemDatabase : ScriptableObject
 {
     [SerializeField] private List<ItemData> _items;
 
-    public ItemData GetMaterialByName(string name)
+    public ItemData GetItemByName(string name)
     {
         foreach (var item in _items)
         {

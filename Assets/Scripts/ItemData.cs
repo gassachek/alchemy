@@ -4,19 +4,19 @@ using UnityEngine;
 public class ItemData
 {
     [SerializeField] private string _name;
-    [SerializeField] private MaterialType _type;
+    [SerializeField] private ItemType _type;
     [SerializeField] private FreshType _fresh;
     [SerializeField] private int _age;
     [SerializeField] private RareType _rare;
 
     public string Name => _name;
-    public MaterialType Type => _type;
+    public ItemType Type => _type;
     public FreshType Fresh => _fresh;
     public int Age => _age;
     public RareType Rare => _rare;
 }
 
-public enum MaterialType {
+public enum ItemType {
     Ingredient,
     Raw
 }

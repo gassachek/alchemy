@@ -2,27 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+public class Material: ScriptableObject
 {
-    public ItemData MaterialData {get; private set;}
-    public int MaterialCount {get; private set;}
+    public ItemData ItemData {get; private set;}
+    public int ItemCount {get; private set;}
 
-    public Item(ItemData material, int count)
+    public void Initialize(ItemData item, int count)
     {
-        MaterialData = material;
-        MaterialCount = count;
+        ItemData = item;
+        ItemCount = count;
     }
 
-    public void AddMaterial(int count)
+    public void AddItem(int count)
     {
-        MaterialCount += count;
+        ItemCount += count;
     }
 
-    public bool RemoveMaterial(int count)
+    public bool RemoveItem(int count)
     {
-        if (MaterialCount >= count)
+        if (ItemCount >= count)
         {
-            MaterialCount -= count;
+            ItemCount -= count;
             return true;
         }
         return false;

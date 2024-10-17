@@ -41,7 +41,7 @@ namespace TMPro.Examples
                     TextMeshPro textMeshPro = go.AddComponent<TextMeshPro>();
 
                     //textMeshPro.fontSharedMaterial = material;
-                    //textMeshPro.font = Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(TextMeshProFont)) as TextMeshProFont;
+                    textMeshPro.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
                     //textMeshPro.anchor = AnchorPositions.Left;
                     textMeshPro.rectTransform.pivot = new Vector2(0, 0.5f);
 
