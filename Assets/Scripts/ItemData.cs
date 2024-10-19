@@ -18,7 +18,8 @@ public class ItemData
 
 public enum ItemType {
     Ingredient,
-    Raw
+    Raw,
+    Potion
 }
 
 public enum FreshType {

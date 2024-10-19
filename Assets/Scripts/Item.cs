@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Material: ScriptableObject
+public class Item: ScriptableObject
 {
     public ItemData ItemData {get; private set;}
     public int ItemCount {get; private set;}
