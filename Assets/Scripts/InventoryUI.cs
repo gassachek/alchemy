@@ -5,7 +5,7 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField]private GameObject InventoryIconPrefab;
     [SerializeField]private Transform Content;
-    private List<InventorySlot> _activeSlot = new List<InventorySlot>();
+    private List<InventorySlot> _activeSlots = new List<InventorySlot>();
 
     private Inventory _inventory;
     private ItemDatabase _itemDatabase;
@@ -15,14 +15,16 @@ public class InventoryUI : MonoBehaviour
         _inventory = GameManager.Instance.inventory;
         _itemDatabase = GameManager.Instance.itemDatabase;
 
-        CreateItems();
+        CreateItems(ItemType.Raw);
     }
 
-    public void CreateItems()
+    public void CreateItems(ItemType type)
     {
+        ClearSlots();
+
         foreach(var itemData in _itemDatabase.GetItemAll())
         {
-            if(itemData != null)
+            if(itemData != null && itemData.Type == type)
             {
                 CreateInventorySlot(itemData, _inventory.Get(itemData.Name));
             }
@@ -34,5 +36,30 @@ public class InventoryUI : MonoBehaviour
         GameObject newSlot = Instantiate(InventoryIconPrefab, Content);
         InventorySlot inventorySlot= newSlot.GetComponent<InventorySlot>();
         inventorySlot.SetSlot(itemData.Name, count);
+        _activeSlots.Add(inventorySlot);
+    }
+
+    private void ClearSlots()
+    {
+        foreach (var slot in _activeSlots)
+        {
+            Destroy(slot.gameObject);
+        }
+        _activeSlots.Clear();
+    }
+
+    public void OnRawButton()
+    {
+        CreateItems(ItemType.Raw);
+    }
+
+    public void OnIngredientButton()
+    {
+        CreateItems(ItemType.Ingredient);
+    }
+
+    public void OnPotionButton()
+    {
+        CreateItems(ItemType.Potion);
     }
 }
