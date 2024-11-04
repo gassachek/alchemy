@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2257496466854350126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8222475336456332565}
+  - component: {fileID: 4423094344794628768}
+  - component: {fileID: 3406171300116473200}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8222475336456332565
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257496466854350126}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1631702598439850772}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.8939018, y: -0.894001}
+  m_SizeDelta: {x: -1.7879, y: -1.7879}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4423094344794628768
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257496466854350126}
+  m_CullTransparentMesh: 1
+--- !u!114 &3406171300116473200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257496466854350126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3635895201952212873
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.080000006, y: 0.060000002}
   m_AnchorMax: {x: 0.92, y: 0.19000001}
-  m_AnchoredPosition: {x: 0.000078201, y: 0.000032902}
+  m_AnchoredPosition: {x: 0.000076293945, y: 0.000030517578}
   m_SizeDelta: {x: -0.0000076294, y: -0.0000085831}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1013156765874675218
@@ -168,7 +243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.65000004, y: 0.8}
   m_AnchorMax: {x: 0.94000006, y: 0.95000005}
-  m_AnchoredPosition: {x: -0.3743, y: 0.000019073486}
+  m_AnchoredPosition: {x: -0.3743, y: 0.000015258789}
   m_SizeDelta: {x: -0.7485, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6681360515608210768
@@ -279,6 +354,7 @@ GameObject:
   - component: {fileID: 1631702598439850772}
   - component: {fileID: 8135765425891116382}
   - component: {fileID: 825980399278724293}
+  - component: {fileID: 6393095965534663803}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -298,6 +374,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8222475336456332565}
   - {fileID: 1756416226700649269}
   - {fileID: 5977517834845692334}
   m_Father: {fileID: 0}
@@ -345,3 +422,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6393095965534663803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297325171474257752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25d1e89f7f565040a50e2aa00644402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  icon: {fileID: 3406171300116473200}
+  itemName: {fileID: 8330658955556652963}
+  itemCount: {fileID: 2622886293817827139}

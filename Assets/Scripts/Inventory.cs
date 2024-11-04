@@ -1,53 +1,59 @@
 using System.Collections.Generic;
+using UnityEditorInternal;
 public class Inventory
 {
-    Dictionary<string, int> Items = new Dictionary<string, int>();
+    Dictionary<string, int> CountItems = new Dictionary<string, int>();
+
+
     public void Add(string name, int count)
     {
-        if (Items.ContainsKey(name))
+        if (CountItems.ContainsKey(name))
         {
-            Items[name] += count;
+            CountItems[name] += count;
         }
         else
         {
-            Items.Add(name, count);
+            CountItems.Add(name, count);
         }
     }
     public int Get(string name)
     {
-        if (Items.TryGetValue(name, out int count))
+        if (CountItems.TryGetValue(name, out int count))
         {
             return count;
         }
-        else
-        {
-            return 0;
-        }
+
+        return 0;
+
     }
     public bool Remove(string name, int count)
     {
-        if (Items.TryGetValue(name, out int countIngredient))
+        int countIngredient;
+        if (!CountItems.TryGetValue(name, out countIngredient))
         {
-            if (countIngredient > count)
-            {
-                Items[name] = countIngredient - count;
-                return true;
-            }
-            else if (countIngredient == count)
-            {
-                Items.Remove(name);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
-        return false;
+
+
+        if (countIngredient < count)
+        {
+            return false;
+        }
+
+
+        CountItems[name] = countIngredient - count;
+
+        if (countIngredient == count)
+        {
+            CountItems.Remove(name);
+            return true;
+        }
+
+        return true;
     }
 
     public Dictionary<string, int> GetItems()
     {
-        return Items;
+        return CountItems;
     }
 }

@@ -3,34 +3,36 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour 
 {
-    public GameObject InventoryIconPrefab;
-    public Transform Content;
-    private List<InventorySlot> activeSlot = new List<InventorySlot>();
+    [SerializeField]private GameObject InventoryIconPrefab;
+    [SerializeField]private Transform Content;
+    private List<InventorySlot> _activeSlot = new List<InventorySlot>();
 
-    private Inventory inventory;
-    private ItemDatabase itemDatabase;
+    private Inventory _inventory;
+    private ItemDatabase _itemDatabase;
 
     void Start()
     {
-        inventory = new Inventory();
-        itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
+        _inventory = GameManager.Instance.inventory;
+        _itemDatabase = GameManager.Instance.itemDatabase;
+
+        CreateItems();
     }
 
-    public void ShowItems(ItemType type)
+    public void CreateItems()
     {
-        foreach(var item in inventory.GetItems())
+        foreach(var itemData in _itemDatabase.GetItemAll())
         {
-            ItemData itemData = itemDatabase.GetItemByName(item.Key);
-            if(itemData != null & itemData.Type == type)
+            if(itemData != null)
             {
-                CreateIventorySlot(itemData, item.Value);
+                CreateInventorySlot(itemData, _inventory.Get(itemData.Name));
             }
         }
     }
 
-    public void CreateIventorySlot(ItemData itemData, int count)
+    public void CreateInventorySlot(ItemData itemData, int count)
     {
         GameObject newSlot = Instantiate(InventoryIconPrefab, Content);
-
+        InventorySlot inventorySlot= newSlot.GetComponent<InventorySlot>();
+        inventorySlot.SetSlot(itemData.Name, count);
     }
 }

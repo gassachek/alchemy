@@ -17,4 +17,9 @@ public class ItemDatabase : ScriptableObject
         }
         return null;
     }
+
+    public List<ItemData> GetItemAll()
+    {
+        return _items;
+    }
 }

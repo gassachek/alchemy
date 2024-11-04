@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
-    public Image icon;
-    public TextMeshPro itemName;
-    public TextMeshPro itemCount;
+    [SerializeField]private Image icon;
+    [SerializeField]private TMP_Text itemName;
+    [SerializeField]private TMP_Text itemCount;
 
-    public void SetSlot(Sprite itemIcon, string name, int count)
+    // Sprite itemIcon, 
+    public void SetSlot(string name, int count)
     {
-        icon.sprite = itemIcon;
+        // icon.sprite = itemIcon;
         itemName.text = name;
         itemCount.text = count.ToString();
     }
