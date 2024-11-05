@@ -355,6 +355,8 @@ GameObject:
   - component: {fileID: 8135765425891116382}
   - component: {fileID: 825980399278724293}
   - component: {fileID: 6393095965534663803}
+  - component: {fileID: 1265935866339906212}
+  - component: {fileID: 8555537655162242103}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -434,6 +436,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25d1e89f7f565040a50e2aa00644402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 3406171300116473200}
-  itemName: {fileID: 8330658955556652963}
-  itemCount: {fileID: 2622886293817827139}
+  _icon: {fileID: 0}
+  _itemName: {fileID: 8330658955556652963}
+  _itemCount: {fileID: 2622886293817827139}
+--- !u!114 &1265935866339906212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297325171474257752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 5
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8555537655162242103}
+          m_TargetAssemblyTypeName: SetItemPosition, Assembly-CSharp
+          m_MethodName: SetPosition
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1631702598439850772}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8555537655162242103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7297325171474257752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c72b0355541967f4d8bd2b5055370099, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
