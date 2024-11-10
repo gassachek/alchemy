@@ -1,10 +1,19 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SetItemPosition: MonoBehaviour
+public class SetItemPosition: MonoBehaviour, IDragHandler
 {
-    public void SetPosition(Transform item)
+    private RectTransform _rectTransform;
+    private Vector3 _startingPosition;
+
+    private void Start()
     {
-        item.position = Input.mousePosition;
+        _rectTransform = GetComponent<RectTransform> ();
     }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        _rectTransform.anchoredPosition += eventData.delta;
+    }
+
 }

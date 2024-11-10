@@ -458,11 +458,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 8555537655162242103}
           m_TargetAssemblyTypeName: SetItemPosition, Assembly-CSharp
-          m_MethodName: SetPosition
-          m_Mode: 2
+          m_MethodName: OnMouseDrag
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 1631702598439850772}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

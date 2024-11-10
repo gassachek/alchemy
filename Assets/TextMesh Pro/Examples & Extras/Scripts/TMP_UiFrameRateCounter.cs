@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace TMPro.Examples
 {
-    
+
     public class TMP_UiFrameRateCounter : MonoBehaviour
     {
         public float UpdateInterval = 5.0f;
@@ -37,9 +37,9 @@ namespace TMPro.Examples
 
             m_TextMeshPro = frameCounter.AddComponent<TextMeshProUGUI>();
             m_TextMeshPro.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-            m_TextMeshPro.fontSharedMaterial = Resources.Load<UnityEngine.Material>("Fonts & Materials/LiberationSans SDF - Overlay");
+            m_TextMeshPro.fontSharedMaterial = Resources.Load<Material>("Fonts & Materials/LiberationSans SDF - Overlay");
 
-            m_TextMeshPro.enableWordWrapping = false;
+            m_TextMeshPro.textWrappingMode = TextWrappingModes.NoWrap;
             m_TextMeshPro.fontSize = 36;
 
             m_TextMeshPro.isOverlay = true;

@@ -9,8 +9,7 @@ namespace TMPro.Examples
     {
 
         private Renderer m_Renderer;
-        private UnityEngine.Material m_Material;
-
+        private Material m_Material;
 
         public AnimationCurve GlowCurve;
 
@@ -42,7 +41,7 @@ namespace TMPro.Examples
                 //m_Material.SetFloat(ShaderPropertyIDs.ID_LightAngle, lightAngle);
 
                 glowPower = GlowCurve.Evaluate(m_frame);
-                m_Material.SetFloat("_GlowPower", glowPower);
+                m_Material.SetFloat(ShaderUtilities.ID_GlowPower, glowPower);
 
                 m_frame += Time.deltaTime * Random.Range(0.2f, 0.3f);
                 yield return new WaitForEndOfFrame();

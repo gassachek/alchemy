@@ -9,6 +9,7 @@ public class InventoryUI : MonoBehaviour
 
     private Inventory _inventory;
     private ItemDatabase _itemDatabase;
+    
 
     void Start()
     {
@@ -61,5 +62,10 @@ public class InventoryUI : MonoBehaviour
     public void OnPotionButton()
     {
         CreateItems(ItemType.Potion);
+    }
+
+    public void TestButton()
+    {
+        
     }
 }
