@@ -1,68 +1,74 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour 
 {
     [SerializeField]private GameObject InventoryIconPrefab;
     [SerializeField]private Transform Content;
-    private List<InventorySlot> _activeSlots = new List<InventorySlot>();
+    private Dictionary<ItemType, List<InventorySlot>> _activeSlots = new Dictionary<ItemType, List<InventorySlot>>();
 
     private Inventory _inventory;
     private ItemDatabase _itemDatabase;
     
+    [SerializeField] private ToggleGroup categoryToggleGroup;
+    [SerializeField] private Toggle rawToggle;
+    [SerializeField] private Toggle ingredientToggle;
+    [SerializeField] private Toggle potionToggle;
+
 
     void Start()
     {
-        _inventory = GameManager.Instance.inventory;
-        _itemDatabase = GameManager.Instance.itemDatabase;
+        _inventory = GameManager.Instance?.inventory;
+        _itemDatabase = GameManager.Instance?.itemDatabase;
+        
+        CreateItems();
 
-        CreateItems(ItemType.Raw);
+        rawToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Raw); });
+        ingredientToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Ingredient); });
+        potionToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Potion); });
+    
     }
 
-    public void CreateItems(ItemType type)
+    public void CreateItems()
     {
-        ClearSlots();
-
         foreach(var itemData in _itemDatabase.GetItemAll())
         {
-            if(itemData != null && itemData.Type == type)
+            if(itemData != null)
             {
-                CreateInventorySlot(itemData, _inventory.Get(itemData.Name));
+                GameObject newSlot = Instantiate(InventoryIconPrefab, Content);
+                InventorySlot inventorySlot= newSlot.GetComponent<InventorySlot>();
+                inventorySlot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
+                newSlot.SetActive(false);
+
+                if(!_activeSlots.ContainsKey(itemData.Type))
+                {
+                    _activeSlots[itemData.Type] = new List<InventorySlot>();
+                }
+                _activeSlots[itemData.Type].Add(inventorySlot);
+            }
+
+        }
+    }
+    private void ShowSlots(ItemType type)
+    {
+        foreach (var slotList in _activeSlots.Values)
+        {
+            foreach(var slot in slotList)
+            {
+                slot.gameObject.SetActive(false);
+            }
+        }
+        
+        if(_activeSlots.ContainsKey(type))
+        {
+            foreach(var slot in _activeSlots[type])
+            {
+                slot.gameObject.SetActive(true);
             }
         }
     }
 
-    public void CreateInventorySlot(ItemData itemData, int count)
-    {
-        GameObject newSlot = Instantiate(InventoryIconPrefab, Content);
-        InventorySlot inventorySlot= newSlot.GetComponent<InventorySlot>();
-        inventorySlot.SetSlot(itemData.Name, count);
-        _activeSlots.Add(inventorySlot);
-    }
-
-    private void ClearSlots()
-    {
-        foreach (var slot in _activeSlots)
-        {
-            Destroy(slot.gameObject);
-        }
-        _activeSlots.Clear();
-    }
-
-    public void OnRawButton()
-    {
-        CreateItems(ItemType.Raw);
-    }
-
-    public void OnIngredientButton()
-    {
-        CreateItems(ItemType.Ingredient);
-    }
-
-    public void OnPotionButton()
-    {
-        CreateItems(ItemType.Potion);
-    }
 
     public void TestButton()
     {
