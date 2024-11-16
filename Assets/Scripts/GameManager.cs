@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public Inventory inventory { get; private set; }
     public ItemDatabase itemDatabase { get; private set; }
+    public IngredientManufactoreDB ingredientManufactoreDB{ get; private set; }
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     {
         inventory = new Inventory();
         itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
+        ingredientManufactoreDB = Resources.Load<IngredientManufactoreDB>("IngredientManufactoreDB");
     }
 }
 

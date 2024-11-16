@@ -15,6 +15,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Toggle rawToggle;
     [SerializeField] private Toggle ingredientToggle;
     [SerializeField] private Toggle potionToggle;
+    
 
 
     void Start()
@@ -70,7 +71,7 @@ public class InventoryUI : MonoBehaviour
     }
 
 
-    public void TestButton()
+    public void GraterButton()
     {
         
     }
