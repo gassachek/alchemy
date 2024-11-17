@@ -18,6 +18,8 @@ public class IngredientsProcessor
         string ingr;
         bool Ingredient = _ingredientManufactoreDB.TryGetByIngredientManufactoreItem(raw, toolType, out ingr);
 
+        Debug.Log($"Количество {raw} в инветаре {_inventory.Get(raw)}, {Ingredient}");
+
         if (!Ingredient)
         {
             Debug.LogWarning($"Невозможно применить {toolType} к {raw}");
@@ -35,7 +37,9 @@ public class IngredientsProcessor
             _inventory.Remove(raw, 1);
             _inventory.Add(ingr, 1);
             Debug.Log($"{toolType} успешно применён к {raw}, создано {ingr}");
+            EventManager.OnInventoryChanged();
         }
 
+        
     }
 }

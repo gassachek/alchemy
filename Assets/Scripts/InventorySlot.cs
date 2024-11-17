@@ -7,7 +7,6 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField]private Image _icon;
     [SerializeField]private TMP_Text _itemName;
-    private string _name;
     [SerializeField]private TMP_Text _itemCount;
     [SerializeField] private Button _button;
 
@@ -26,6 +25,7 @@ public class InventorySlot : MonoBehaviour
 
     private void OnSlotClicked()
     {
-        Object.FindFirstObjectByType<ToolPresenter>().SelectItem(_name);
+        // ToolPresenter.SelectItem(_itemName.text);
+        Object.FindFirstObjectByType<ToolPresenter>().SelectItem(_itemName.text);
     }
 }

@@ -23,12 +23,23 @@ public class InventoryUI : MonoBehaviour
         _inventory = GameManager.Instance?.inventory;
         _itemDatabase = GameManager.Instance?.itemDatabase;
         
+        Reboot();
+
+        EventManager.InventoryChanged += OnInventoryChanged;
+    }
+
+    private void Reboot()
+    {
         CreateItems();
 
         rawToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Raw); });
         ingredientToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Ingredient); });
         potionToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Potion); });
-    
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.InventoryChanged -= OnInventoryChanged;
     }
 
     public void CreateItems()
@@ -70,9 +81,18 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-
-    public void GraterButton()
+    private void OnInventoryChanged()
     {
-        
+        Debug.Log("Вызов метода OnInventoryChanged");
+        foreach (var slotList in _activeSlots.Values)
+        {
+            foreach(var slot in slotList)
+            {
+                Destroy(slot.gameObject);
+            }
+        }
+        _activeSlots.Clear();
+
+        Reboot();
     }
 }

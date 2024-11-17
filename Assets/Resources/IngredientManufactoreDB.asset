@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: IngredientManufactoreDB
   m_EditorClassIdentifier: 
   _manufactoring:
-  - _raw: 
-    _ingredient: 
+  - _raw: 5
+    _ingredient: 1
     _toolType: 0
-    _count: 0
+    _count: 1
+  - _raw: 6
+    _ingredient: 2
+    _toolType: 0
+    _count: 2
+  - _raw: 7
+    _ingredient: 3
+    _toolType: 0
+    _count: 2

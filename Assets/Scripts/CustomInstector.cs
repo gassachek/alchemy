@@ -23,6 +23,7 @@ public class CustomInspectore: MonoBehaviour
             }
 
         }
+        EventManager.OnInventoryChanged();
     }
 
     public void AddIngredientMaterials()
@@ -36,6 +37,7 @@ public class CustomInspectore: MonoBehaviour
             }
 
         }
+        EventManager.OnInventoryChanged();
     }
 
     public void AddPotionMaterials()
@@ -49,5 +51,6 @@ public class CustomInspectore: MonoBehaviour
             }
 
         }
+        EventManager.OnInventoryChanged();
     }
 }
