@@ -21,7 +21,6 @@ public class InventorySlot : MonoBehaviour
 
     void Start()
     {
-
         _button.onClick.AddListener(OnSlotClicked);
     }
 

@@ -12,13 +12,13 @@ public class ToolPresenter : MonoBehaviour
         {
             _isApplyMode = false;
             _selectedTool = null;
-            Debug.Log("active");
+            Debug.Log("inactive");
         }
         else
         {
             _isApplyMode = true;
             _selectedTool = tool;
-            Debug.Log($"inactive {_selectedTool}");
+            Debug.Log($"active {_selectedTool}");
         }
     }
 

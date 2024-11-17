@@ -18,10 +18,23 @@ public class IngredientsProcessor
         string ingr;
         bool Ingredient = _ingredientManufactoreDB.TryGetByIngredientManufactoreItem(raw, toolType, out ingr);
 
+        if (!Ingredient)
+        {
+            Debug.LogWarning($"Невозможно применить {toolType} к {raw}");
+            return;
+        }
+
+        if (_inventory.Get(raw) <= 0)
+        {
+            Debug.LogWarning($"Нет предмета {raw} в инвентаре!");
+            return;
+        }
+
         if (_inventory.Get(raw) > 0 && Ingredient)
         {
             _inventory.Remove(raw, 1);
             _inventory.Add(ingr, 1);
+            Debug.Log($"{toolType} успешно применён к {raw}, создано {ingr}");
         }
 
     }
