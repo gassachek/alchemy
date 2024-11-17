@@ -9,17 +9,17 @@ public class EditorCustomInspectore : Editor {
         CustomInspectore customInspectore = (CustomInspectore)target;
 
         if(GUILayout.Button("+5 to Raw")) {
-            customInspectore.AddRawMaterials();
+            customInspectore.AddMaterials(ItemType.Raw);
             Debug.Log("sadsd");
         }
 
         if(GUILayout.Button("+5 to Ingredient")) {
-            customInspectore.AddIngredientMaterials();
+            customInspectore.AddMaterials(ItemType.Ingredient);
             Debug.Log("sadsd");
         }
 
         if(GUILayout.Button("+5 to Potion")) {
-            customInspectore.AddPotionMaterials();
+            customInspectore.AddMaterials(ItemType.Potion);
             Debug.Log("sadsd");
         }
         

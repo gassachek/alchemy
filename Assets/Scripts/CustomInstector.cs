@@ -12,44 +12,15 @@ public class CustomInspectore: MonoBehaviour
         _itemDatabase = GameManager.Instance?.itemDatabase;
     }
 
-    public void AddRawMaterials()
+    public void AddMaterials(ItemType type)
     {
-        foreach(var itemData in _itemDatabase.GetItemAll())
+        foreach (var itemData in _itemDatabase.GetItemAll())
         {
-            if(itemData != null && itemData.Type == ItemType.Raw)
+            if (itemData != null && itemData.Type == type)
             {
                 int countItems = _inventory.Get(itemData.Name); 
                 _inventory.Add(itemData.Name, countItems + 5);
             }
-
-        }
-        EventManager.OnInventoryChanged();
-    }
-
-    public void AddIngredientMaterials()
-    {
-        foreach(var itemData in _itemDatabase.GetItemAll())
-        {
-            if(itemData != null && itemData.Type == ItemType.Ingredient)
-            {
-                int countItems = _inventory.Get(itemData.Name); 
-                _inventory.Add(itemData.Name, countItems + 5);
-            }
-
-        }
-        EventManager.OnInventoryChanged();
-    }
-
-    public void AddPotionMaterials()
-    {
-        foreach(var itemData in _itemDatabase.GetItemAll())
-        {
-            if(itemData != null && itemData.Type == ItemType.Potion)
-            {
-                int countItems = _inventory.Get(itemData.Name); 
-                _inventory.Add(itemData.Name, countItems + 5);
-            }
-
         }
         EventManager.OnInventoryChanged();
     }
