@@ -9,4 +9,5 @@ public class RecipeData
     
     public List<string> Ingredients => _ingredients;
     public string Potion => _potion;
+    public bool Unlocked = false;
 }

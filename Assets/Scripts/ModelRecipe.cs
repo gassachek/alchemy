@@ -12,6 +12,7 @@ public class ModelRecipe: ScriptableObject
         {
             if (recipe.Ingredients == ingredients)
             {
+                recipe.Unlocked = true;
                 return recipe.Potion;
             }
         }
