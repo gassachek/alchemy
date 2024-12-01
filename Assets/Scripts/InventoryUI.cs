@@ -4,9 +4,8 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour 
 {
-    [SerializeField]private GameObject InventoryIconPrefab;
+    [SerializeField]private InventorySlot InventoryIconPrefab;
     [SerializeField]private Transform Content;
-    private Dictionary<ItemType, List<InventorySlot>> _activeSlots = new Dictionary<ItemType, List<InventorySlot>>();
 
     private Inventory _inventory;
     private ItemDatabase _itemDatabase;
@@ -15,6 +14,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Toggle rawToggle;
     [SerializeField] private Toggle ingredientToggle;
     [SerializeField] private Toggle potionToggle;
+
+    private ItemType _activetype;
     
 
 
@@ -23,23 +24,45 @@ public class InventoryUI : MonoBehaviour
         _inventory = GameManager.Instance?.inventory;
         _itemDatabase = GameManager.Instance?.itemDatabase;
         
-        Reboot();
+        CreateItems();
+
+        rawToggle.onValueChanged.AddListener(RawToggleChanged);
+        ingredientToggle.onValueChanged.AddListener(IngredientToggleChanged);
+        potionToggle.onValueChanged.AddListener(PotionToggleChanged);
 
         EventManager.InventoryChanged += OnInventoryChanged;
     }
 
-    private void Reboot()
+    private void RawToggleChanged(bool isOn)
     {
-        CreateItems();
+        OnToggleChanged(isOn, ItemType.Raw);
+    }
 
-        rawToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Raw); });
-        ingredientToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Ingredient); });
-        potionToggle?.onValueChanged.AddListener(isOn => { if (isOn) ShowSlots(ItemType.Potion); });
+    private void IngredientToggleChanged(bool isOn)
+    {
+        OnToggleChanged(isOn, ItemType.Ingredient);
+    }
+
+    private void PotionToggleChanged(bool isOn)
+    {
+        OnToggleChanged(isOn, ItemType.Potion);
+    }
+
+    private void OnToggleChanged(bool isOn, ItemType type)
+    {
+        if(isOn)
+        {
+            ShowSlots(type);
+            _activetype = type;
+        }
     }
 
     private void OnDestroy()
     {
         EventManager.InventoryChanged -= OnInventoryChanged;
+        rawToggle.onValueChanged.RemoveListener(RawToggleChanged);
+        ingredientToggle.onValueChanged.RemoveListener(IngredientToggleChanged);
+        potionToggle.onValueChanged.RemoveListener(PotionToggleChanged);
     }
 
     public void CreateItems()
@@ -48,35 +71,32 @@ public class InventoryUI : MonoBehaviour
         {
             if(itemData != null)
             {
-                GameObject newSlot = Instantiate(InventoryIconPrefab, Content);
-                InventorySlot inventorySlot= newSlot.GetComponent<InventorySlot>();
-                inventorySlot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
-                newSlot.SetActive(false);
-
-                if(!_activeSlots.ContainsKey(itemData.Type))
-                {
-                    _activeSlots[itemData.Type] = new List<InventorySlot>();
-                }
-                _activeSlots[itemData.Type].Add(inventorySlot);
+                var newSlot = Instantiate(InventoryIconPrefab, Content);
+                newSlot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
+                newSlot.gameObject.SetActive(false);
             }
 
         }
     }
     private void ShowSlots(ItemType type)
     {
-        foreach (var slotList in _activeSlots.Values)
+        foreach (Transform child in Content)
         {
-            foreach(var slot in slotList)
+            var slot = child.GetComponent<InventorySlot>();
+            if (slot != null)
             {
-                slot.gameObject.SetActive(false);
-            }
-        }
-        
-        if(_activeSlots.ContainsKey(type))
-        {
-            foreach(var slot in _activeSlots[type])
-            {
-                slot.gameObject.SetActive(true);
+                string itemName = slot.GetItemName().text;
+                ItemData itemData = _itemDatabase.GetItemByName(itemName);
+                
+                if (itemData != null && itemData.Type == type)
+                {
+                    slot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
+                    child.gameObject.SetActive(true);
+                }
+                else
+                {
+                    child.gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -84,15 +104,6 @@ public class InventoryUI : MonoBehaviour
     private void OnInventoryChanged()
     {
         Debug.Log("Вызов метода OnInventoryChanged");
-        foreach (var slotList in _activeSlots.Values)
-        {
-            foreach(var slot in slotList)
-            {
-                Destroy(slot.gameObject);
-            }
-        }
-        _activeSlots.Clear();
-
-        Reboot();
+        ShowSlots(_activetype);
     }
 }
