@@ -9,6 +9,7 @@ public class InventorySlot : MonoBehaviour
     [SerializeField]private TMP_Text _itemName;
     [SerializeField]private TMP_Text _itemCount;
     [SerializeField] private Button _button;
+    
 
     // Sprite itemIcon, 
     public void SetSlot(string name, int count)
@@ -18,6 +19,10 @@ public class InventorySlot : MonoBehaviour
         _itemCount.text = count.ToString();
     }
 
+    public TMP_Text GetItemName()
+    {
+        return _itemName;
+    }
     void Start()
     {
         _button.onClick.AddListener(OnSlotClicked);
