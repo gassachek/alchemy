@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     public ItemDatabase itemDatabase { get; private set; }
     public IngredientManufactoreDB ingredientManufactoreDB{ get; private set; }
     public ModelRecipe modelRecipe{ get; private set; }
+    private Canvas canvas;
 
     private void Awake()
     {
+        canvas = GetComponent<Canvas>();
         if (Instance == null)
         {
             Instance = this;
@@ -33,6 +35,11 @@ public class GameManager : MonoBehaviour
         itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
         ingredientManufactoreDB = Resources.Load<IngredientManufactoreDB>("IngredientManufactoreDB");
         modelRecipe = Resources.Load<ModelRecipe>("ModelRecipe");
+    }
+
+    public float GetScaleFactor()
+    {
+        return canvas.scaleFactor;
     }
 }
 
