@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour 
 {
-    [SerializeField]private InventorySlot InventoryIconPrefab;
-    [SerializeField]private Transform Content;
+    [SerializeField] private InventoryItem InventoryIconPrefab;
+    [SerializeField] private Transform Content;
+    [SerializeField] private GameObject ItemContainerPrefab;
 
     private Inventory _inventory;
     private ItemDatabase _itemDatabase;
@@ -17,8 +18,6 @@ public class InventoryUI : MonoBehaviour
 
     private ItemType _activetype;
     
-
-
     void Start()
     {
         _inventory = GameManager.Instance?.inventory;
@@ -71,18 +70,23 @@ public class InventoryUI : MonoBehaviour
         {
             if(itemData != null)
             {
-                var newSlot = Instantiate(InventoryIconPrefab, Content);
+                var newItemContainer = Instantiate(ItemContainerPrefab, Content);
+                var newSlot = Instantiate(InventoryIconPrefab, newItemContainer.transform);
                 newSlot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
-                newSlot.gameObject.SetActive(false);
+                newItemContainer.name = $"Container_{itemData.Name}";
+                newItemContainer.gameObject.SetActive(false);
             }
-
         }
     }
+
     private void ShowSlots(ItemType type)
     {
         foreach (Transform child in Content)
         {
-            var slot = child.GetComponent<InventorySlot>();
+            GameObject itemContainer = child.gameObject;
+
+            // Получаем слот предмета внутри контейнера
+            var slot = itemContainer.GetComponentInChildren<InventoryItem>();
             if (slot != null)
             {
                 string itemName = slot.GetItemName().text;
@@ -90,12 +94,12 @@ public class InventoryUI : MonoBehaviour
                 
                 if (itemData != null && itemData.Type == type)
                 {
+                    itemContainer.SetActive(true);
                     slot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
-                    child.gameObject.SetActive(true);
                 }
                 else
                 {
-                    child.gameObject.SetActive(false);
+                    itemContainer.SetActive(false);
                 }
             }
         }
