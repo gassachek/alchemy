@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PresenterBoiler: MonoBehaviour
+public class BoilerPresenter: MonoBehaviour
 {
-    List<string> recipe  = new List<string>();
+    private List<string> recipe  = new List<string>();
     private Inventory _inventory = GameManager.Instance?.inventory;
-    private ModelRecipe _modelRecipe = GameManager.Instance?.modelRecipe;
+    private RecipeDB _recipeDB = GameManager.Instance?.recipeDB;
 
     public void Add(string name)
     {
@@ -13,6 +13,7 @@ public class PresenterBoiler: MonoBehaviour
         {
             recipe.Add(name);
             _inventory.Remove(name, 1);
+            Debug.Log($"Элемент {name} добавлен в котел");
         }
         else
         {
@@ -20,10 +21,17 @@ public class PresenterBoiler: MonoBehaviour
         }
     }
     
-    public void Boiling(List<string> recipe)
+    public void Boiling()
     {
-        string Potion = _modelRecipe.GetBoiledPotion(recipe);
-        _inventory.Add(Potion, 1);
-        recipe.Clear();
+        if (recipe == null)
+        {
+            string Potion = _recipeDB.GetBoiledPotion(recipe);
+            _inventory.Add(Potion, 1);
+            recipe.Clear();
+        }
+        else
+        {
+            Debug.LogError("В котле нет ингредиентов");
+        }
     }
 }
