@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public Inventory inventory { get; private set; }
     public ItemDatabase itemDatabase { get; private set; }
     public IngredientManufactoreDB ingredientManufactoreDB{ get; private set; }
-    public ModelRecipe modelRecipe{ get; private set; }
+    public RecipeDB recipeDB{ get; private set; }
     private Canvas canvas;
 
     private void Awake()
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         inventory = new Inventory();
         itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
         ingredientManufactoreDB = Resources.Load<IngredientManufactoreDB>("IngredientManufactoreDB");
-        modelRecipe = Resources.Load<ModelRecipe>("ModelRecipe");
+        recipeDB = Resources.Load<RecipeDB>("RecipeDB");
     }
 
     public float GetScaleFactor()
