@@ -13,15 +13,19 @@ MonoBehaviour:
   m_Name: IngredientManufactoreDB
   m_EditorClassIdentifier: 
   _manufactoring:
-  - _raw: 5
-    _ingredient: 1
+  - _raw: "\u0422\u0440\u0430\u0432\u0430"
+    _ingredient: "\u0421\u043E\u043A \u0442\u0440\u0430\u0432\u044B"
     _toolType: 0
     _count: 1
-  - _raw: 6
-    _ingredient: 2
+  - _raw: "\u0426\u0432\u0435\u0442\u043E\u043A"
+    _ingredient: "\u041F\u044B\u043B\u044C\u0446\u0430"
     _toolType: 0
     _count: 2
-  - _raw: 7
-    _ingredient: 3
+  - _raw: "\u0421\u0435\u0440\u0434\u0446\u0435"
+    _ingredient: "\u041A\u0440\u043E\u0432\u044C"
+    _toolType: 0
+    _count: 2
+  - _raw: "\u0410\u043B\u043C\u0430\u0437"
+    _ingredient: "\u041F\u043E\u0440\u043E\u0448\u043E\u043A"
     _toolType: 0
     _count: 2
