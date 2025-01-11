@@ -5,6 +5,7 @@ public class ItemData
 {
     [SerializeField] private string _name;
     [SerializeField] private ItemType _type;
+    [SerializeField] private AspectType _aspect;
     [SerializeField] private FreshType _fresh;
     [SerializeField] private int _age;
     [SerializeField] private RareType _rare;
@@ -32,4 +33,13 @@ public enum RareType {
     Simple,
     Rare,
     Uniquely
+}
+
+public enum AspectType
+{
+    Fire,
+    Water,
+    Earth,
+    Air,
+    Neutral
 }
