@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class IngredientsProcessor
 {
-    private Inventory _inventory;
+    private InventoryModel _inventoryModel;
     private IngredientManufactoreDB _ingredientManufactoreDB;
 
-    public IngredientsProcessor(Inventory inventory,  IngredientManufactoreDB ingredientManufactoreDB)
+    public IngredientsProcessor(InventoryModel inventoryModel,  IngredientManufactoreDB ingredientManufactoreDB)
     {
-        _inventory = inventory;
+        _inventoryModel = inventoryModel;
         _ingredientManufactoreDB = ingredientManufactoreDB;
     }
 
@@ -18,7 +18,7 @@ public class IngredientsProcessor
         string ingr;
         bool Ingredient = _ingredientManufactoreDB.TryGetByIngredientManufactoreItem(raw, toolType, out ingr);
 
-        Debug.Log($"Количество {raw} в инветаре {_inventory.Get(raw)}, {Ingredient}");
+        Debug.Log($"Количество {raw} в инветаре {_inventoryModel.Get(raw)}, {Ingredient}");
 
         if (!Ingredient)
         {
@@ -26,18 +26,17 @@ public class IngredientsProcessor
             return;
         }
 
-        if (_inventory.Get(raw) <= 0)
+        if (_inventoryModel.Get(raw) <= 0)
         {
             Debug.LogWarning($"Нет предмета {raw} в инвентаре!");
             return;
         }
 
-        if (_inventory.Get(raw) > 0 && Ingredient)
+        if (_inventoryModel.Get(raw) > 0 && Ingredient)
         {
-            _inventory.Remove(raw, 1);
-            _inventory.Add(ingr, 1);
+            _inventoryModel.Remove(raw, 1);
+            _inventoryModel.Add(ingr, 1);
             Debug.Log($"{toolType} успешно применён к {raw}, создано {ingr}");
-            EventManager.OnInventoryChanged();
         }
 
         
