@@ -8,7 +8,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Transform Content;
     [SerializeField] private GameObject ItemContainerPrefab;
 
-    private Inventory _inventory;
+    private InventoryModel _inventoryModel;
     private ItemDatabase _itemDatabase;
     
     [SerializeField] private ToggleGroup categoryToggleGroup;
@@ -20,7 +20,7 @@ public class InventoryUI : MonoBehaviour
     
     void Start()
     {
-        _inventory = GameManager.Instance?.inventory;
+        _inventoryModel = GameManager.Instance?.InventoryModel;
         _itemDatabase = GameManager.Instance?.itemDatabase;
         
         CreateItems();
@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
         ingredientToggle.onValueChanged.AddListener(IngredientToggleChanged);
         potionToggle.onValueChanged.AddListener(PotionToggleChanged);
 
-        EventManager.InventoryChanged += OnInventoryChanged;
+        _inventoryModel.InventoryChanged += OnInventoryModelChanged;
     }
 
     private void RawToggleChanged(bool isOn)
@@ -58,7 +58,7 @@ public class InventoryUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        EventManager.InventoryChanged -= OnInventoryChanged;
+        _inventoryModel.InventoryChanged -= OnInventoryModelChanged;
         rawToggle.onValueChanged.RemoveListener(RawToggleChanged);
         ingredientToggle.onValueChanged.RemoveListener(IngredientToggleChanged);
         potionToggle.onValueChanged.RemoveListener(PotionToggleChanged);
@@ -72,7 +72,7 @@ public class InventoryUI : MonoBehaviour
             {
                 var newItemContainer = Instantiate(ItemContainerPrefab, Content);
                 var newSlot = Instantiate(InventoryIconPrefab, newItemContainer.transform);
-                newSlot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
+                newSlot.SetSlot(itemData.Name, _inventoryModel.Get(itemData.Name));
                 newItemContainer.name = $"Container_{itemData.Name}";
                 newItemContainer.gameObject.SetActive(false);
             }
@@ -95,7 +95,7 @@ public class InventoryUI : MonoBehaviour
                 if (itemData != null && itemData.Type == type)
                 {
                     itemContainer.SetActive(true);
-                    slot.SetSlot(itemData.Name, _inventory.Get(itemData.Name));
+                    slot.SetSlot(itemData.Name, _inventoryModel.Get(itemData.Name));
                 }
                 else
                 {
@@ -105,7 +105,7 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void OnInventoryChanged()
+    private void OnInventoryModelChanged()
     {
         Debug.Log("Вызов метода OnInventoryChanged");
         ShowSlots(_activetype);

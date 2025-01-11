@@ -1,9 +1,9 @@
+using MVP;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BoilerView : MonoBehaviour, IDropHandler
+public class BoilerView : View<BoilerPresenter>, IDropHandler
 {
-    BoilerPresenter boilerPresenter;
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag != null)
@@ -12,18 +12,15 @@ public class BoilerView : MonoBehaviour, IDropHandler
             
             RectTransform droppedObject = eventData.pointerDrag.GetComponent<RectTransform>();
             droppedObject.anchoredPosition = Vector2.zero;
-            boilerPresenter = GetComponent<BoilerPresenter>();
-    
-            if (boilerPresenter != null)
-            {
-                string itemName = eventData.pointerDrag.name;
-                boilerPresenter.Add(itemName);
-            }
+        
+            string itemName = eventData.pointerDrag.name;
+            Presenter.Add(itemName);
+            
         }
     }
 
     public void Boiling()
     {
-        boilerPresenter.Boiling();
+        Presenter.Boiling();
     }
 }
