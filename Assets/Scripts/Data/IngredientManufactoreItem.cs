@@ -15,6 +15,8 @@ public class IngredientManufactoreItem
 }
 
 public enum Tool {
+    None = 0,
     Grater,
     Mortar
+    
 }
