@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CustomInspectore: MonoBehaviour
 {
-    private Inventory _inventory;
+    private InventoryModel _inventoryModel;
     private ItemDatabase _itemDatabase;
     void Start()
     {
-        _inventory = GameManager.Instance?.inventory;
+        _inventoryModel = GameManager.Instance?.InventoryModel;
         _itemDatabase = GameManager.Instance?.itemDatabase;
     }
 
@@ -18,10 +18,10 @@ public class CustomInspectore: MonoBehaviour
         {
             if (itemData != null && itemData.Type == type)
             {
-                int countItems = _inventory.Get(itemData.Name); 
-                _inventory.Add(itemData.Name, countItems + 5);
+                int countItems = _inventoryModel.Get(itemData.Name); 
+                _inventoryModel.Add(itemData.Name, countItems + 5);
             }
         }
-        EventManager.OnInventoryChanged();
+
     }
 }

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public Inventory inventory { get; private set; }
+    public InventoryModel InventoryModel { get; private set; }
     public ItemDatabase itemDatabase { get; private set; }
     public IngredientManufactoreDB ingredientManufactoreDB{ get; private set; }
     public RecipeDB recipeDB{ get; private set; }
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     private void InitializeManager()
     {
-        inventory = new Inventory();
+        InventoryModel = new InventoryModel();
         itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
         ingredientManufactoreDB = Resources.Load<IngredientManufactoreDB>("IngredientManufactoreDB");
         recipeDB = Resources.Load<RecipeDB>("RecipeDB");
