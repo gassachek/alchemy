@@ -1,11 +1,15 @@
 using System.Collections.Generic;
+using MVP;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class PrecipePresenter : MonoBehaviour
+public class RecipePresenter : Presenter
 {
     private List<string> recipe = new List<string>();
-    private Inventory _inventory = GameManager.Instance?.inventory;
+    private InventoryModel _inventoryModel = GameManager.Instance?.InventoryModel;
     private RecipeDB _recipeDB = GameManager.Instance?.recipeDB;
+    
+    private bool _isActiveMap = true;
 
     public void GetRecipes()
     {
@@ -16,5 +20,11 @@ public class PrecipePresenter : MonoBehaviour
                 
             }
         }
+    }
+
+    public void ActivateMap(GameObject map)
+    {
+        _isActiveMap = !_isActiveMap;
+        map.SetActive(_isActiveMap);
     }
 }
