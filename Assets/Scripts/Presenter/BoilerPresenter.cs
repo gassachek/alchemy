@@ -13,7 +13,7 @@ public class BoilerPresenter: Presenter
         if (!recipe.Contains(name))
         {
             recipe.Add(name);
-            // _inventory.Remove(name, 1);
+            _inventoryModel.Remove(name, 1);
             Debug.Log($"Элемент {name} добавлен в котел");
         }
         else
