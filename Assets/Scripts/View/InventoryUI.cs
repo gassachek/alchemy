@@ -10,6 +10,7 @@ public class InventoryUI : MonoBehaviour
 
     private InventoryModel _inventoryModel;
     private ItemDatabase _itemDatabase;
+    private PotionConfig _potionConfig;
     
     [SerializeField] private ToggleGroup categoryToggleGroup;
     [SerializeField] private Toggle rawToggle;
@@ -20,8 +21,9 @@ public class InventoryUI : MonoBehaviour
     
     void Start()
     {
-        _inventoryModel = GameManager.Instance?.InventoryModel;
-        _itemDatabase = GameManager.Instance?.itemDatabase;
+        _inventoryModel = GameManager.Get<InventoryModel>();
+        _itemDatabase = GameManager.Get<ItemDatabase>();
+        _potionConfig = GameManager.Get<PotionConfig>();
         
         CreateItems();
 

@@ -24,8 +24,7 @@ public class ToolPresenter : MonoBehaviour
 
     public void SelectItem(string ItemName)
     {
-        IngredientsProcessor processor = new IngredientsProcessor(GameManager.Instance.InventoryModel, GameManager.Instance.ingredientManufactoreDB);
-        processor.Process(ItemName, _selectedTool);
+        GameManager.Get<IngredientsProcessor>().Process(ItemName, _selectedTool);
         //добавить проверку
 
         Debug.Log($"{_selectedTool} применён к {ItemName}");

@@ -5,8 +5,8 @@ using UnityEngine;
 public class BoilerPresenter: Presenter
 {
     private List<string> recipe  = new List<string>();
-    private InventoryModel _inventoryModel = GameManager.Instance?.InventoryModel;
-    private RecipeDB _recipeDB = GameManager.Instance?.recipeDB;
+    private InventoryModel _inventoryModel = GameManager.Get<InventoryModel>();
+    private RecipeDB _recipeDB = GameManager.Get<RecipeDB>();
 
     public void Add(string name)
     {

@@ -1,48 +1,24 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public static class GameManager
 {
-    public static GameManager Instance { get; private set; }
+    private static Dictionary<Type, object> _container = new Dictionary<Type, object>();
 
-    public InventoryModel InventoryModel { get; private set; }
-    public ItemDatabase itemDatabase { get; private set; }
-    public IngredientManufactoreDB ingredientManufactoreDB{ get; private set; }
-    public RecipeDB recipeDB{ get; private set; }
-    public PotionConfig potionConfig { get; private set; }
-    
-    private Canvas canvas;
-
-    private void Awake()
+    public static void Add<T>(T obj)
     {
-        canvas = GetComponent<Canvas>();
-        if (Instance == null)
+        _container.Add(typeof(T), obj);
+    }
+
+    public static T Get<T>()
+    {
+        if (_container.ContainsKey(typeof(T)))
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            InitializeManager();
+            return (T)_container[typeof(T)];
         }
-        else
-        {
-	        Destroy(gameObject);
-	    }
-	
+        return default;
     }
-
-    private void InitializeManager()
-    {
-        InventoryModel = new InventoryModel();
-        itemDatabase = Resources.Load<ItemDatabase>("ItemDatabase");
-        ingredientManufactoreDB = Resources.Load<IngredientManufactoreDB>("IngredientManufactoreDB");
-        recipeDB = Resources.Load<RecipeDB>("RecipeDB");
-        potionConfig = Resources.Load<PotionConfig>("PotionConfig");
-    }
-
-    public float GetScaleFactor()
-    {
-        return canvas.scaleFactor;
-    }
+    
 }
 

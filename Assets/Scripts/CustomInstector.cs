@@ -8,8 +8,8 @@ public class CustomInspectore: MonoBehaviour
     private ItemDatabase _itemDatabase;
     void Start()
     {
-        _inventoryModel = GameManager.Instance?.InventoryModel;
-        _itemDatabase = GameManager.Instance?.itemDatabase;
+        _inventoryModel = GameManager.Get<InventoryModel>();
+        _itemDatabase = GameManager.Get<ItemDatabase>();
     }
 
     public void AddMaterials(ItemType type)
