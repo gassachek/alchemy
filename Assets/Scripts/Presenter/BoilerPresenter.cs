@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoilerPresenter: Presenter
 {
-    private List<string> recipe  = new List<string>();
+    private static List<string> recipe = new List<string>();
     private InventoryModel _inventoryModel = GameManager.Get<InventoryModel>();
     private RecipeDB _recipeDB = GameManager.Get<RecipeDB>();
 
@@ -15,6 +15,7 @@ public class BoilerPresenter: Presenter
             recipe.Add(name);
             _inventoryModel.Remove(name, 1);
             Debug.Log($"Элемент {name} добавлен в котел");
+            Debug.Log($"Ингредиентов в котле: {recipe.Count} ");
         }
         else
         {
@@ -24,15 +25,28 @@ public class BoilerPresenter: Presenter
     
     public void Boiling()
     {
-        if (recipe != null)
+        if (recipe.Count < 2)
         {
-            string Potion = _recipeDB.GetBoiledPotion(recipe);
-            _inventoryModel.Add(Potion, 1);
-            recipe.Clear();
+            Debug.LogError("Недостаточно ингредиентов для варки!");
+            return;
+        }
+
+        Debug.Log($"{recipe[0]} {recipe[1]}");
+
+        string potion = _recipeDB.GetBoiledPotion(new List<string>(recipe));
+        Debug.Log($"Попытка сварить зелье {potion}");
+
+        if (!string.IsNullOrEmpty(potion))
+        {
+            _inventoryModel.Add(potion, 1);
+            Debug.Log("Вы сварили зелье!");
         }
         else
         {
-            Debug.LogError("В котле нет ингредиентов");
+            Debug.LogError("Рецепт не найден!");
         }
+
+        recipe.Clear();
     }
+
 }
