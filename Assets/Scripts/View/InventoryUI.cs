@@ -68,17 +68,32 @@ public class InventoryUI : MonoBehaviour
 
     public void CreateItems()
     {
-        foreach(var itemData in _itemDatabase.GetItemAll())
+        // Создаём слоты для всех предметов из _itemDatabase
+        foreach (var itemData in _itemDatabase.GetItemAll())
         {
-            if(itemData != null)
+            if (itemData != null)
             {
-                var newItemContainer = Instantiate(ItemContainerPrefab, Content);
-                var newSlot = Instantiate(InventoryIconPrefab, newItemContainer.transform);
-                newSlot.SetSlot(itemData.Name, _inventoryModel.Get(itemData.Name));
-                newItemContainer.name = $"Container_{itemData.Name}";
-                newItemContainer.gameObject.SetActive(false);
+                CreateSlot(itemData.Name);
             }
         }
+
+        // Создаём слоты для всех зелий из _potionConfig
+        foreach (var potionData in _potionConfig.GetItemAll())
+        {
+            if (potionData != null)
+            {
+                CreateSlot(potionData.Name);
+            }
+        }
+    }
+
+    private void CreateSlot(string itemName)
+    {
+        var newItemContainer = Instantiate(ItemContainerPrefab, Content);
+        var newSlot = Instantiate(InventoryIconPrefab, newItemContainer.transform);
+        newSlot.SetSlot(itemName, _inventoryModel.Get(itemName));
+        newItemContainer.name = $"Container_{itemName}";
+        newItemContainer.gameObject.SetActive(false);
     }
 
     private void ShowSlots(ItemType type)
@@ -86,18 +101,23 @@ public class InventoryUI : MonoBehaviour
         foreach (Transform child in Content)
         {
             GameObject itemContainer = child.gameObject;
-
-            // Получаем слот предмета внутри контейнера
             var slot = itemContainer.GetComponentInChildren<InventoryItem>();
+
             if (slot != null)
             {
                 string itemName = slot.GetItemName().text;
                 ItemData itemData = _itemDatabase.GetItemByName(itemName);
+                PotionData potionData = _potionConfig.GetPotionByName(itemName);
                 
                 if (itemData != null && itemData.Type == type)
                 {
                     itemContainer.SetActive(true);
                     slot.SetSlot(itemData.Name, _inventoryModel.Get(itemData.Name));
+                }
+                else if (potionData != null && type == ItemType.Potion)
+                {
+                    itemContainer.SetActive(true);
+                    slot.SetSlot(potionData.Name, _inventoryModel.Get(potionData.Name));
                 }
                 else
                 {
@@ -106,6 +126,7 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
 
     private void OnInventoryModelChanged()
     {
