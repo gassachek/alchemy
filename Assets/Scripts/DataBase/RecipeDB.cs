@@ -14,7 +14,7 @@ public class RecipeDB : ScriptableObject
             if (recipe.Ingredients.Select(x => x.Trim()).OrderBy(x => x)
                 .SequenceEqual(ingredients.Select(x => x.Trim()).OrderBy(x => x)))
             {
-                recipe.Unlocked = true;
+                // recipe.Unlocked = true;
                 return recipe.Potion;
             }
         }
